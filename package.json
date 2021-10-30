@@ -1,0 +1,16 @@
+{
+  "name": "tebex-listener",
+  "version": "1.0.0",
+  "description": "recieves webhooks from tebex and logs them",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-prom-bundle": "^6.4.1",
+    "prom-client": "^14.0.0"
+  }
+}
