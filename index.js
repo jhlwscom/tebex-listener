@@ -54,6 +54,6 @@ app.post("/", (req, res) => {
         res.status(400).end();
         return;
     }
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
     res.status(200).end();
 });
