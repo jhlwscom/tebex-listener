@@ -40,6 +40,10 @@ function hashTebex(body) {
         .digest()
 }
 
+app.get("/", (req, res) =>{
+    res.status(200).end();
+})
+
 app.post("/", (req, res) => {
     let suppliedHash = req.header("X-BC-Sig")
     if (!suppliedHash) {
