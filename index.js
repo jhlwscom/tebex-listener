@@ -6,7 +6,7 @@ const app = express()
 const PORT = process.env.PORT || 3000;
 const SECRET = process.env.SECRET;
 
-if(SECRET === undefined){
+if (SECRET === undefined) {
     console.log("secret not provided")
     process.exit(1)
 }
@@ -14,13 +14,13 @@ if(SECRET === undefined){
 /// prometheus
 const bundle = promBundle({
     includeMethod: true,
-    includeStatusCode: true, 
+    includeStatusCode: true,
     includeUp: true,
     promClient: {
-      collectDefaultMetrics: {
-      }
+        collectDefaultMetrics: {
+        }
     }
-  });
+});
 
 app.use(bundle);
 
@@ -34,13 +34,11 @@ app.listen(PORT, () => {
 function hashTebex(body) {
     return crypto
         .createHash('sha256')
-        .update(body['payment']['txn_id'])
-        .update(body['payment']['status'])
-        .update(body['customer']['email'])
-        .digest()
+        .update(SECRET + body['payment']['txn_id'] + body['payment']['status'] + body['customer']['email'])
+        .digest('hex')
 }
 
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
     res.status(200).end();
 })
 
