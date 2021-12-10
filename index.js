@@ -51,11 +51,11 @@ app.post("/", (req, res) => {
         res.status(400).end();
         return;
     }
-    if (suppliedHash != hashTebex(req.body())) {
+    if (suppliedHash != hashTebex(req.body)) {
         console.log("ignoring hook with bad hash")
         res.status(400).end();
         return;
     }
-    console.log(req.body());
+    console.log(req.body);
     res.status(200).end();
 });
