@@ -38,13 +38,6 @@ function hashTebex(body) {
         .digest('hex')
 }
 
-function hashEvents(body) {
-    return crypto
-        .createHash('sha256')
-        .update(body['uuid']+ body['username'])
-        .digest('hex')
-}
-
 app.get("/", (req, res) => {
     res.status(200).end();
 })
@@ -66,17 +59,11 @@ app.post("/", (req, res) => {
 });
 
 app.post("/v1/events", (req, res) => {
-    let suppliedHash = req.header("X-Signature")
-    if (!suppliedHash) {
-        console.log("ignoring hook with no hash")
-        res.status(400).end();
-        return;
-    }
-    if (suppliedHash != hashEvents(req.body)) {
-        console.log("ignoring hook with bad hash")
-        res.status(400).end();
-        return;
-    }
-    console.log(JSON.stringify(req.body));
+    console.log(JSON.stringify({
+        "body": req.body,
+        "params": req.params,
+        "headers": req.headers
+    }));
+
     res.status(200).end();
 });
